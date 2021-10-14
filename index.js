@@ -40,13 +40,24 @@ const requestHandler = (request, response) => {
 
             const renderHtml = html.replace(/img src=\"\//g, 'img src="file://' + __dirname + "/");
 
-            htmlPdf.create(renderHtml, options).toFile(fileName, (err) => {
+            // htmlPdf.create(renderHtml, options).toFile(fileName, (err) => {
+
+            //     if (err) {
+            //         console.log('Ошибка конвертации', err)
+            //     }
+
+            //     response.end(html);
+            // });
+
+            htmlPdf.create(renderHtml, options).toBuffer((err, buffer) => {
 
                 if (err) {
                     console.log('Ошибка конвертации', err)
+                    return;
                 }
 
-                response.end(html);
+                response.
+                response.end(buffer, 'binary');
             });
 
         })
